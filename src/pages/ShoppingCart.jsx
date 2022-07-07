@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class ShoppingCart extends Component {
+class ShoppingCart extends React.Component {
   render() {
     return (
-      <div>ShoppingCart</div>
+      <div>
+        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+      </div>
     );
   }
 }
+
+export default ShoppingCart;
