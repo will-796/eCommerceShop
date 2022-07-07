@@ -15,8 +15,8 @@ export default class Home extends Component {
       <header>
         <input type="text" />
       </header>
-      {inputSearch.length < 1 ? <h2>Digite algum termo de pesquisa ou escolha uma categoria</h2> : <div></div> } 
-      
+      // { inputSearch.length < 1 ? <h2>Digite algum termo de pesquisa ou escolha uma categoria</h2> : <div></div> }
+
     );
   }
 }
