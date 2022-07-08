@@ -47,6 +47,7 @@ export default class ProductDetail extends Component {
         <div>
           <Link to="/shoppingCart">Ir para o Carrinho</Link>
         </div>
+        <div>Algo</div>
       </div>
     );
   }
