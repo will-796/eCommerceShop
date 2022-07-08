@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { getCategories } from '../services/api';
 
 export default class Home extends Component {
   constructor() {
     super();
     this.state = {
       inputSearch: '',
+      categories: [],
     };
   }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  fetchApi = async () => {
+    const result = await getCategories();
+    console.log(result);
+    this.setState({ categories: result });
+  };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -14,7 +27,7 @@ export default class Home extends Component {
   };
 
   render() {
-    const { inputSearch } = this.state;
+    const { inputSearch, categories } = this.state;
     return (
       <div>
         <header>
@@ -24,12 +37,25 @@ export default class Home extends Component {
             value={ inputSearch }
             onChange={ this.handleChange }
           />
+          <ul>
+            <li>
+              <Link to="/shoppingCart" data-testid="shopping-cart-button" />
+              Search
+            </li>
+          </ul>
         </header>
         {inputSearch.length === 0 && (
           <div data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </div>
         )}
+        <aside>
+          {categories.map((categorie) => (
+            <span key={ categorie.id } data-testid="category">
+              {categorie.name}
+            </span>
+          ))}
+        </aside>
       </div>
     );
   }
