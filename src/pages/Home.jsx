@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
 import { Link } from 'react-router-dom';
-
+import { getCategories } from '../services/api';
 
 export default class Home extends Component {
   constructor() {
@@ -41,7 +40,7 @@ export default class Home extends Component {
           <ul>
             <li>
               <Link to="/shoppingCart" data-testid="shopping-cart-button" />
-              Search
+              Carrinho
             </li>
           </ul>
         </header>
