@@ -40,7 +40,7 @@ export default class Home extends Component {
           <ul>
             <li>
               <Link to="/shoppingCart" data-testid="shopping-cart-button" />
-              Search
+              Carrinho
             </li>
           </ul>
         </header>
