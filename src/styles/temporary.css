@@ -1,0 +1,37 @@
+main {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 50px;
+  justify-content: space-around;
+
+}
+
+.products-container {
+  display: flex;
+
+  /* flex-direction: column; */
+  flex-grow: 20%;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.categories-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.categorie {
+  background-color: red;
+  height: 20px;
+  width: 200px;
+
+}
+
+.product {
+  background-color: red;
+  height: 300px;
+  width: 300px;
+
+}
