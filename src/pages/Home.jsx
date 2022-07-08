@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { getCategories } from '../services/api';
+import { Link } from 'react-router-dom';
+
 
 export default class Home extends Component {
   constructor() {
@@ -36,6 +38,12 @@ export default class Home extends Component {
             value={ inputSearch }
             onChange={ this.handleChange }
           />
+          <ul>
+            <li>
+              <Link to="/shoppingCart" data-testid="shopping-cart-button" />
+              Search
+            </li>
+          </ul>
         </header>
         {inputSearch.length === 0 && (
           <div data-testid="home-initial-message">
