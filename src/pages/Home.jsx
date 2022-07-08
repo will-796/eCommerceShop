@@ -33,6 +33,12 @@ export default class Home extends Component {
     this.setState({ products: products.results });
   };
 
+  handleClickCategorie = async (category) => {
+    const products = await getProductsFromCategoryAndQuery(category);
+    this.setState({ products: products.results });
+    console.log(products);
+  };
+
   render() {
     const { inputSearch, categories, products } = this.state;
     return (
@@ -49,6 +55,7 @@ export default class Home extends Component {
             type="button"
             data-testid="query-button"
             onClick={ this.handleClick }
+            disabled={ inputSearch.length === 0 }
           >
             Pesquisar
           </button>
@@ -61,7 +68,7 @@ export default class Home extends Component {
           </ul>
         </header>
         <main>
-          {inputSearch.length === 0 ? (
+          {products.length === 0 ? (
             <div data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </div>
@@ -73,10 +80,16 @@ export default class Home extends Component {
             </div>
           )}
           <aside className="categories-container">
-            {categories.map((categorie) => (
-              <span key={ categorie.id } data-testid="category" className="categorie">
-                {categorie.name}
-              </span>
+            {categories.map((categoriy) => (
+              <button
+                key={ categoriy.id }
+                type="button"
+                data-testid="category"
+                className="categoriy"
+                onClick={ () => this.handleClickCategorie(categoriy.id, false) }
+              >
+                {categoriy.name}
+              </button>
             ))}
           </aside>
         </main>
