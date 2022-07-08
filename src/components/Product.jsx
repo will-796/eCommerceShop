@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { handleSubmit } from '../services/sessionStorage';
 
 export default class Product extends Component {
   render() {
@@ -17,6 +18,14 @@ export default class Product extends Component {
           detalhes do produto
 
         </Link>
+        <button
+          data-testid="product-add-to-cart"
+          type="button"
+          onClick={ () => handleSubmit(product.id) }
+        >
+          Adicione ao carrinho
+
+        </button>
       </div>
     );
   }
