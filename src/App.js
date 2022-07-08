@@ -4,6 +4,7 @@ import FinishPayment from './pages/FinishPayment';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import ShoppingCart from './pages/ShoppingCart';
+import './styles/temporary.css';
 
 class App extends React.Component {
   constructor() {

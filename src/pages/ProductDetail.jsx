@@ -1,9 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import ProductQuantity from '../components/ProductQuantity';
 import { getProductData } from '../services/api';
-import ProductQuantity from '../component/ProductQuantity';
-import ProductRating from '../component/ProductRating ';
+
+
+import ProductRating from '../components/ProductRating ';
+
+
 
 export default class ProductDetail extends Component {
   constructor() {
