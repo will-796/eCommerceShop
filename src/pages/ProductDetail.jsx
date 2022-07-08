@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import ProductQuantity from '../components/ProductQuantity';
 import { getProductData } from '../services/api';
 
+import ProductRating from '../components/ProductRating ';
+
 export default class ProductDetail extends Component {
   constructor() {
     super();
