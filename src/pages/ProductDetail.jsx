@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductData } from '../services/api';
 import ProductQuantity from '../component/ProductQuantity';
+import ProductRating from '../component/ProductRating ';
 
 export default class ProductDetail extends Component {
   constructor() {
@@ -47,7 +48,7 @@ export default class ProductDetail extends Component {
         <div>
           <Link to="/shoppingCart">Ir para o Carrinho</Link>
         </div>
-        <div>Algo</div>
+        <div><ProductRating /></div>
       </div>
     );
   }
