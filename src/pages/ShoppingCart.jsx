@@ -16,7 +16,7 @@ class ShoppingCart extends React.Component {
   }
 
   getProducts = async () => {
-    const idProducts = recoveryFromSection();
+    const idProducts = recoveryFromSection('shoppingCart');
     const result = idProducts.map((id) => getProductData(id));
     const array = await Promise.all(result);
     this.setState({

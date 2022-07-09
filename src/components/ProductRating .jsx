@@ -1,35 +1,34 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { recoveryFromSection } from '../services/sessionStorage';
+import AvaliationForm from './AvaliationForm';
+import Reviews from './ReviewCard';
 
-export default class ProductRating extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      // message: '',
-    };
+export default class ProductRating extends React.Component {
+  componentDidMount() {
+    this.handleReviews();
   }
 
-   handleChanges =({ target }) => {
-     const { name, value } = target;
-     this.setState({
-       [name]: value,
-     });
-   }
+  handleReviews = () => {
+    const { productId } = this.props;
+    const data = recoveryFromSection('avaliations');
+    const productReview = data.some((avaliation) => avaliation.productId === productId);
+    console.log(data);
+    console.log(productReview);
+  }
 
-   render() {
-     const { email } = this.state;
-     return (
-       <div>
-         Avaliações
-         <form>
-           <input
-             name="email"
-             type="email"
-             placeholder="Email"
-             data-testid="product-detail-email"
-           />
-         </form>
-       </div>
-     );
-   }
+  render() {
+    const { productId } = this.props;
+    return (
+      <div>
+        Avaliações
+        <div><AvaliationForm productId={ productId } /></div>
+        <div><Reviews productId={ productId } /></div>
+      </div>
+    );
+  }
 }
+
+ProductRating.propTypes = {
+  productId: PropTypes.string.isRequired,
+};
