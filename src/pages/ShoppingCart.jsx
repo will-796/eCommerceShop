@@ -114,7 +114,6 @@ class ShoppingCart extends React.Component {
               >
                 +
               </button>
-
             </div>
             <button type="button">
               <Link
@@ -122,10 +121,8 @@ class ShoppingCart extends React.Component {
                 data-testid="checkout-products"
               >
                 Finalizar Pedido
-
               </Link>
             </button>
-
           </div>
         ))}
         <div>{totalPrice}</div>
