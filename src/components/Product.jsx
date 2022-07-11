@@ -21,7 +21,7 @@ export default class Product extends Component {
         <button
           data-testid="product-add-to-cart"
           type="button"
-          onClick={ () => handleSubmit('shoppingCart', product.id) }
+          onClick={ () => handleSubmit('shoppingCart', product) }
         >
           Adicione ao carrinho
 

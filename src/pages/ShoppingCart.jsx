@@ -1,7 +1,5 @@
 import React from 'react';
-import ShoppingCartProdutcs from '../components/ShoppingCartProdutcs';
-import { getProductData } from '../services/api';
-import { handleSubmit, recoveryFromSection } from '../services/sessionStorage';
+import { recoveryFromSection } from '../services/sessionStorage';
 
 class ShoppingCart extends React.Component {
   constructor() {
@@ -16,42 +14,41 @@ class ShoppingCart extends React.Component {
     this.getProducts();
   }
 
-  getProducts = async () => {
-    const idProducts = recoveryFromSection('shoppingCart');
-    const result = idProducts.map((id) => getProductData(id));
-    const array = await Promise.all(result);
+  getProducts = () => {
+    const products = recoveryFromSection('shoppingCart');
+    const ids = products.map((product) => product.id);
     this.setState({
-      data: array,
-      totalPrice: array.reduce(
+      data: products,
+      totalPrice: products.reduce(
         (totalprice, product) => totalprice + product.price,
         0,
       ),
-      unityProducts: array.filter(
-        ({ id }, index) => !idProducts.includes(id, index + 1),
+      unityProducts: products.filter(
+        ({ id }, index) => !ids.includes(id, index + 1),
       ),
     });
   };
 
-  handleAddButtonClick = async (id) => {
-    const idProducts = recoveryFromSection('shoppingCart');
-    const newIdProducts = [...idProducts, id];
-    handleSubmit('shoppingCart', id);
-    const result = newIdProducts.map((ids) => getProductData(ids));
-    const array = await Promise.all(result);
-    this.setState({
-      data: array,
-      totalPrice: array.reduce(
-        (totalprice, product) => totalprice + product.price,
-        0,
-      ),
-    });
-  };
+  // handleAddButtonClick = async (id) => {
+  //   const idProducts = recoveryFromSection('shoppingCart');
+  //   const newIdProducts = [...idProducts, id];
+  //   handleSubmit('shoppingCart', id);
+  //   const result = newIdProducts.map((ids) => getProductData(ids));
+  //   const array = await Promise.all(result);
+  //   this.setState({
+  //     data: array,
+  //     totalPrice: array.reduce(
+  //       (totalprice, product) => totalprice + product.price,
+  //       0,
+  //     ),
+  //   });
+  // };
 
-  handleRemoveButtonClick = (id) => {
-    const idProducts = recoveryFromSection('shoppingCart');
-    const resultId = idProducts.filter((product) => product === id);
-    console.log(resultId);
-  };
+  // handleRemoveButtonClick = (id) => {
+  //   const idProducts = recoveryFromSection('shoppingCart');
+  //   const resultId = idProducts.filter((product) => product === id);
+  //   console.log(resultId);
+  // };
 
   render() {
     const { data, totalPrice, unityProducts } = this.state;
@@ -82,7 +79,6 @@ class ShoppingCart extends React.Component {
           </div>
         ))}
         <div>{totalPrice}</div>
-        <ShoppingCartProdutcs />
       </div>
     );
   }
