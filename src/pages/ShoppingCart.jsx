@@ -29,6 +29,40 @@ class ShoppingCart extends React.Component {
     });
   };
 
+  handleRemoveButtonClick = (event) => {
+    const idProducts = recoveryFromSection('shoppingCart');
+    const ids = idProducts.map((product) => product.id);
+    const indexof = ids.indexOf(event);
+    idProducts.splice(indexof, 1);
+    const arrayString = JSON.stringify(idProducts);
+    sessionStorage.setItem('shoppingCart', arrayString);
+    this.setState({
+      data: idProducts,
+      totalPrice: idProducts.reduce(
+        (totalprice, product) => totalprice + product.price,
+        0,
+      ),
+
+    });
+  }
+
+  handleAddButtonClick = (event) => {
+    const idProducts = recoveryFromSection('shoppingCart');
+    const objt = idProducts.find((element) => (element.id === event ? element : null));
+    idProducts.push(objt);
+    const arrayString = JSON.stringify(idProducts);
+    sessionStorage.setItem('shoppingCart', arrayString);
+
+    this.setState({
+      data: idProducts,
+      totalPrice: idProducts.reduce(
+        (totalprice, product) => totalprice + product.price,
+        0,
+      ),
+
+    });
+  }
+
   // handleAddButtonClick = async (id) => {
   //   const idProducts = recoveryFromSection('shoppingCart');
   //   const newIdProducts = [...idProducts, id];
@@ -52,8 +86,8 @@ class ShoppingCart extends React.Component {
 
   render() {
     const { data, totalPrice, unityProducts } = this.state;
-    console.log(data);
-    console.log(unityProducts);
+    // console.log(data);
+    // console.log(unityProducts);
     return (
       <div>
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
@@ -61,21 +95,26 @@ class ShoppingCart extends React.Component {
           <div key={ index }>
             <h1 data-testid="shopping-cart-product-name">{item.title}</h1>
             <h3>{item.price}</h3>
-            <h3 data-testid="shopping-cart-product-quantity">
+            <div>
               <button
                 type="button"
                 onClick={ () => this.handleRemoveButtonClick(item.id) }
+                data-testid="product-decrease-quantity"
               >
-                Remove 1 produto
+                -
               </button>
-              {data.filter(({ id }) => id === item.id).length}
+              <h3 data-testid="shopping-cart-product-quantity">
+                {data.filter(({ id }) => id === item.id).length}
+              </h3>
               <button
                 type="button"
                 onClick={ () => this.handleAddButtonClick(item.id) }
+                data-testid="product-increase-quantity"
               >
-                Adiciona 1 produto
+                +
               </button>
-            </h3>
+            </div>
+
           </div>
         ))}
         <div>{totalPrice}</div>
