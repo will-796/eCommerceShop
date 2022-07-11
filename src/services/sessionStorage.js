@@ -11,6 +11,9 @@ export function handleSubmit(key, id) {
 
 export function recoveryFromSection(key) {
   const old = sessionStorage.getItem(key);
+  if (old === null) {
+    return [];
+  }
   const result = JSON.parse(old);
   return result;
 }
