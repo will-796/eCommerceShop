@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { recoveryFromSection } from '../services/sessionStorage';
 
 class ShoppingCart extends React.Component {
@@ -52,11 +53,10 @@ class ShoppingCart extends React.Component {
 
   render() {
     const { data, totalPrice, unityProducts } = this.state;
-    console.log(data);
-    console.log(unityProducts);
     return (
       <div>
-        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+        {data.length === 0
+        && <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
         {unityProducts.map((item, index) => (
           <div key={ index }>
             <h1 data-testid="shopping-cart-product-name">{item.title}</h1>
@@ -76,6 +76,15 @@ class ShoppingCart extends React.Component {
                 Adiciona 1 produto
               </button>
             </h3>
+            <button type="button">
+              <Link
+                to="/finishPayment"
+                data-testid="checkout-products"
+              >
+                Finalizar Pedido
+
+              </Link>
+            </button>
           </div>
         ))}
         <div>{totalPrice}</div>
