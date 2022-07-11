@@ -29,6 +29,7 @@ class ShoppingCart extends React.Component {
     });
   };
 
+  // debora hurrul aee ebaa
   // handleAddButtonClick = async (id) => {
   //   const idProducts = recoveryFromSection('shoppingCart');
   //   const newIdProducts = [...idProducts, id];
