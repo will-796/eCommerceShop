@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProductQuantity from '../components/ProductQuantity';
 import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
 
@@ -59,7 +58,6 @@ export default class ProductDetail extends React.Component {
                   {details.value_name}
                 </p>))}
             </div>
-            <ProductQuantity />
             <div>
               <Link to="/shoppingCart">Ir para o Carrinho</Link>
             </div>
