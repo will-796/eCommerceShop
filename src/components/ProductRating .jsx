@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 // import { recoveryFromSection } from '../services/sessionStorage';
-import AvaliationForm from './AvaliationForm';
+// import AvaliationForm from './AvaliationForm';
 import ReviewCard from './ReviewCard';
 
 export default class ProductRating extends React.Component {
   // constructor() {
   //   super();
-  //   const { id } = this.props;
   //   this.state = {
-  //     id,
+  //     id: '',
   //   };
   // }
 
   componentDidMount() {
     const { id } = this.props;
+    // this.setState({ id });
     console.log(id);
     // this.handleReviews(id);
   }
@@ -31,13 +31,13 @@ export default class ProductRating extends React.Component {
   // }
 
   render() {
-    const { id } = this.props;
-    console.log(id);
+    // const { id } = this.state;
+    // console.log(id);
 
     return (
       <div>
         Avaliações
-        <div><AvaliationForm id={ id } /></div>
+        {/* <div><AvaliationForm id={ id } /></div> */}
         <div><ReviewCard /></div>
       </div>
     );
