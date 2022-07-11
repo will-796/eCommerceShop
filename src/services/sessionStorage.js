@@ -11,6 +11,9 @@ export function handleSubmit(id) {
 
 export function recoveryFromSection() {
   const old = sessionStorage.getItem('shoppingCart');
+  if (old === null) {
+    return [];
+  }
   const result = JSON.parse(old);
   return result;
 }
