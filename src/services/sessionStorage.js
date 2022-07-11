@@ -1,16 +1,19 @@
-export function handleSubmit(id) {
-  if (!sessionStorage.getItem('shoppingCart')) {
-    sessionStorage.setItem('shoppingCart', '[]');
+export function handleSubmit(key, id) {
+  if (!sessionStorage.getItem(key)) {
+    sessionStorage.setItem(key, '[]');
   }
-  const shoppingCart = sessionStorage.getItem('shoppingCart');
-  const old = JSON.parse(shoppingCart);
+  const data = sessionStorage.getItem(key);
+  const old = JSON.parse(data);
   const newArray = [...old, id];
   const result = JSON.stringify(newArray);
-  sessionStorage.setItem('shoppingCart', result);
+  sessionStorage.setItem(key, result);
 }
 
-export function recoveryFromSection() {
-  const old = sessionStorage.getItem('shoppingCart');
+export function recoveryFromSection(key) {
+  const old = sessionStorage.getItem(key);
+  if (old === null) {
+    return [];
+  }
   const result = JSON.parse(old);
   return result;
 }
