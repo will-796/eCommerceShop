@@ -27,10 +27,10 @@ export default class AvaliationForm extends React.Component {
   }
 
   handleAvaliations = (event) => {
-    const { productId } = this.props;
+    const { id } = this.props;
     event.preventDefault();
     const { email, message, rating } = this.state;
-    const newReview = { email, message, rating, productId };
+    const newReview = { email, message, rating, id };
     handleSubmit('avaliations', newReview);
     this.setState({
       email: '',
@@ -73,5 +73,5 @@ export default class AvaliationForm extends React.Component {
 }
 
 AvaliationForm.propTypes = {
-  productId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

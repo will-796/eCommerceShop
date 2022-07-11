@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Reviews extends React.Component {
+export default class ReviewCard extends React.Component {
   constructor() {
     super();
     this.state = {

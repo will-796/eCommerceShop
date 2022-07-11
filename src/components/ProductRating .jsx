@@ -1,34 +1,49 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { recoveryFromSection } from '../services/sessionStorage';
+// import { recoveryFromSection } from '../services/sessionStorage';
 import AvaliationForm from './AvaliationForm';
-import Reviews from './ReviewCard';
+import ReviewCard from './ReviewCard';
 
 export default class ProductRating extends React.Component {
+  // constructor() {
+  //   super();
+  //   const { id } = this.props;
+  //   this.state = {
+  //     id,
+  //   };
+  // }
+
   componentDidMount() {
-    this.handleReviews();
+    const { id } = this.props;
+    console.log(id);
+    // this.handleReviews(id);
   }
 
-  handleReviews = () => {
-    const { productId } = this.props;
-    const data = recoveryFromSection('avaliations');
-    const productReview = data.some((avaliation) => avaliation.productId === productId);
-    console.log(data);
-    console.log(productReview);
-  }
+  // handleReviews = (productId) => {
+  //   console.log(productId);
+  //   const data = recoveryFromSection('avaliations');
+  //   const productReview = data.filter((avaliation) => (
+  //     (avaliation.id === productId) ? avaliation : 'nope'));
+  //   // console.log(data);
+  //   // console.log(id);
+
+  //   console.log(productReview);
+  // }
 
   render() {
-    const { productId } = this.props;
+    const { id } = this.props;
+    console.log(id);
+
     return (
       <div>
         Avaliações
-        <div><AvaliationForm productId={ productId } /></div>
-        <div><Reviews productId={ productId } /></div>
+        <div><AvaliationForm id={ id } /></div>
+        <div><ReviewCard /></div>
       </div>
     );
   }
 }
 
 ProductRating.propTypes = {
-  productId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
