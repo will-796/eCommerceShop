@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AvaliationForm from '../components/AvaliationForm';
 import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
 
@@ -63,7 +64,10 @@ export default class ProductDetail extends React.Component {
             </div>
           </section>
           <section>
-            <div><ProductRating id={ productId } /></div>
+            <div>
+              <AvaliationForm id={ productId } />
+              <ProductRating id={ productId } />
+            </div>
           </section>
         </main>
       </main>
