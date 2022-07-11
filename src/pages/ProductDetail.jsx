@@ -5,7 +5,6 @@ import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
 import { handleSubmit } from '../services/sessionStorage';
 
-
 export default class ProductDetail extends React.Component {
   constructor() {
     super();
