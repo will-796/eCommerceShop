@@ -6,6 +6,7 @@ export default class FinishPayment extends Component {
   constructor() {
     super();
     this.state = {
+      empty: true,
       inputName: '',
       inputCpf: '',
       inputEmail: '',
@@ -22,12 +23,12 @@ export default class FinishPayment extends Component {
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    console.log(name);
     this.setState({ [name]: value });
   };
 
   validateForm=() => {
-    if (null) {
+    const empty = this.state;
+    if (empty) {
       this.setState({ inputName: '',
         inputCpf: '',
         inputEmail: '',
@@ -45,6 +46,7 @@ export default class FinishPayment extends Component {
 
   render() {
     const {
+      empty,
       inputName,
       inputCpf,
       inputEmail,
@@ -64,7 +66,8 @@ export default class FinishPayment extends Component {
         <section>Revise seus produtos</section>
         <form action="">
           <input
-            className={ null ? 'red' : '' }
+            data-testid="checkout-fullname"
+            className={ empty ? 'red' : '' }
             type="text"
             placeholder="Nome Completo"
             onChange={ this.handleChange }
@@ -72,13 +75,15 @@ export default class FinishPayment extends Component {
             value={ inputName }
           />
           <input
-            type="number"
+            data-testid="checkout-cpf"
+            type="text"
             placeholder="CPF"
             onChange={ this.handleChange }
             name="inputCpf"
             value={ inputCpf }
           />
           <input
+            data-testid="checkout-email"
             type="email"
             placeholder="Email"
             onChange={ this.handleChange }
@@ -86,20 +91,23 @@ export default class FinishPayment extends Component {
             value={ inputEmail }
           />
           <input
-            type="number"
+            data-testid="checkout-phone"
+            type="text"
             placeholder="Telefone"
             onChange={ this.handleChange }
             name="inputPhone"
             value={ inputPhone }
           />
           <input
-            type="number"
+            data-testid="checkout-cep"
+            type="text"
             placeholder="CEP"
             onChange={ this.handleChange }
             name="inputCEP"
             value={ inputCEP }
           />
           <input
+            data-testid="checkout-address"
             type="text"
             placeholder="Endereço"
             onChange={ this.handleChange }
