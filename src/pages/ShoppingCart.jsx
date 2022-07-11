@@ -33,9 +33,9 @@ class ShoppingCart extends React.Component {
   };
 
   handleAddButtonClick = async (id) => {
-    const idProducts = recoveryFromSection();
+    const idProducts = recoveryFromSection('shoppingCart');
     const newIdProducts = [...idProducts, id];
-    handleSubmit(id);
+    handleSubmit('shoppingCart', id);
     const result = newIdProducts.map((ids) => getProductData(ids));
     const array = await Promise.all(result);
     this.setState({
@@ -47,7 +47,11 @@ class ShoppingCart extends React.Component {
     });
   };
 
-  handleRemoveButtonClick = () => {};
+  handleRemoveButtonClick = (id) => {
+    const idProducts = recoveryFromSection('shoppingCart');
+    const resultId = idProducts.filter((product) => product === id);
+    console.log(resultId);
+  };
 
   render() {
     const { data, totalPrice, unityProducts } = this.state;
