@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
+import { handleSubmit } from '../services/sessionStorage';
 
 export default class ProductDetail extends React.Component {
   constructor() {
@@ -26,7 +27,14 @@ export default class ProductDetail extends React.Component {
       image: data.thumbnail,
       price: data.price,
       aditionalInfo: data.attributes,
+      data,
     });
+  }
+
+  handleClick = () => {
+    const { data } = this.state;
+
+    handleSubmit('shoppingCart', data);
   }
 
   previousPage = () => {
@@ -57,6 +65,14 @@ export default class ProductDetail extends React.Component {
                   {' '}
                   {details.value_name}
                 </p>))}
+              <button
+                data-testid="product-detail-add-to-cart"
+                type="button"
+                onClick={ this.handleClick }
+
+              >
+                Adicionar ao Carrinho
+              </button>
             </div>
             <div>
               <Link to="/shoppingCart">Ir para o Carrinho</Link>
