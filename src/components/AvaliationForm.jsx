@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { handleSubmit } from '../services/sessionStorage';
 import StarRating from './StarRating';
 
@@ -27,7 +27,7 @@ export default class AvaliationForm extends React.Component {
   }
 
   handleAvaliations = (event) => {
-    const { id } = this.props;
+    const { id, updateReviews } = this.props;
     event.preventDefault();
     const { email, message, rating } = this.state;
     const newReview = { email, message, rating, id };
@@ -37,6 +37,7 @@ export default class AvaliationForm extends React.Component {
       message: '',
       rating: 0,
     });
+    updateReviews();
   }
 
   render() {
@@ -74,4 +75,5 @@ export default class AvaliationForm extends React.Component {
 
 AvaliationForm.propTypes = {
   id: PropTypes.string.isRequired,
+  updateReviews: PropTypes.func.isRequired,
 };

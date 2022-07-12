@@ -1,44 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// import { recoveryFromSection } from '../services/sessionStorage';
-// import AvaliationForm from './AvaliationForm';
-import ReviewCard from './ReviewCard';
 
 export default class ProductRating extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     id: '',
-  //   };
-  // }
-
-  componentDidMount() {
-    const { id } = this.props;
-    // this.setState({ id });
-    console.log(id);
-    // this.handleReviews(id);
+  renderStar = (rating) => {
+    const number = 5;
+    const stars = [...Array(number)].map((element, index) => {
+      index += 1;
+      if (rating >= index) {
+        return '★';
+      }
+      return '☆';
+    });
+    return stars;
   }
 
-  // handleReviews = (productId) => {
-  //   console.log(productId);
-  //   const data = recoveryFromSection('avaliations');
-  //   const productReview = data.filter((avaliation) => (
-  //     (avaliation.id === productId) ? avaliation : 'nope'));
-  //   // console.log(data);
-  //   // console.log(id);
-
-  //   console.log(productReview);
-  // }
-
   render() {
-    // const { id } = this.state;
-    // console.log(id);
-
+    const { id, data } = this.props;
     return (
       <div>
-        Avaliações
-        {/* <div><AvaliationForm id={ id } /></div> */}
-        <div><ReviewCard /></div>
+        <h3>Avaliações</h3>
+        {
+          data.filter((avaliation) => avaliation.id === id)
+            .map((element, index) => (
+              <div key={ index }>
+                <h4>{element.email}</h4>
+                <p>{element.rating}</p>
+                {this.renderStar(element.rating)}
+                <p>{element.message}</p>
+              </div>
+            ))
+        }
       </div>
     );
   }
@@ -46,4 +37,5 @@ export default class ProductRating extends React.Component {
 
 ProductRating.propTypes = {
   id: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
 };
