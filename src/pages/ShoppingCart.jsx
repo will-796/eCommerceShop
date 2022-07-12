@@ -30,26 +30,41 @@ class ShoppingCart extends React.Component {
     });
   };
 
-  // handleAddButtonClick = async (id) => {
-  //   const idProducts = recoveryFromSection('shoppingCart');
-  //   const newIdProducts = [...idProducts, id];
-  //   handleSubmit('shoppingCart', id);
-  //   const result = newIdProducts.map((ids) => getProductData(ids));
-  //   const array = await Promise.all(result);
-  //   this.setState({
-  //     data: array,
-  //     totalPrice: array.reduce(
-  //       (totalprice, product) => totalprice + product.price,
-  //       0,
-  //     ),
-  //   });
-  // };
+  handleRemoveButtonClick = (id) => {
+    const products = recoveryFromSection('shoppingCart');
 
-  // handleRemoveButtonClick = (id) => {
-  //   const idProducts = recoveryFromSection('shoppingCart');
-  //   const resultId = idProducts.filter((product) => product === id);
-  //   console.log(resultId);
-  // };
+    if (products.filter((product) => product.id === id).length > 1) {
+      const ids = products.map((product) => product.id);
+      const indexof = ids.indexOf(id);
+      products.splice(indexof, 1);
+      const productStingfy = JSON.stringify(products);
+      sessionStorage.setItem('shoppingCart', productStingfy);
+      this.setState({
+        data: products,
+        totalPrice: products.reduce(
+          (totalprice, product) => totalprice + product.price,
+          0,
+        ),
+      });
+    }
+  }
+
+  handleAddButtonClick = (event) => {
+    const products = recoveryFromSection('shoppingCart');
+    const objt = products.find((element) => (element.id === event ? element : null));
+    products.push(objt);
+    const productStingfy = JSON.stringify(products);
+    sessionStorage.setItem('shoppingCart', productStingfy);
+
+    this.setState({
+      data: products,
+      totalPrice: products.reduce(
+        (totalprice, product) => totalprice + product.price,
+        0,
+      ),
+
+    });
+  }
 
   render() {
     const { data, totalPrice, unityProducts } = this.state;
@@ -61,28 +76,31 @@ class ShoppingCart extends React.Component {
           <div key={ index }>
             <h1 data-testid="shopping-cart-product-name">{item.title}</h1>
             <h3>{item.price}</h3>
-            <h3 data-testid="shopping-cart-product-quantity">
+            <div>
               <button
                 type="button"
                 onClick={ () => this.handleRemoveButtonClick(item.id) }
+                data-testid="product-decrease-quantity"
               >
-                Remove 1 produto
+                -
               </button>
-              {data.filter(({ id }) => id === item.id).length}
+              <h3 data-testid="shopping-cart-product-quantity">
+                {data.filter(({ id }) => id === item.id).length}
+              </h3>
               <button
                 type="button"
                 onClick={ () => this.handleAddButtonClick(item.id) }
+                data-testid="product-increase-quantity"
               >
-                Adiciona 1 produto
+                +
               </button>
-            </h3>
+            </div>
             <button type="button">
               <Link
                 to="/finishPayment"
                 data-testid="checkout-products"
               >
                 Finalizar Pedido
-
               </Link>
             </button>
           </div>
