@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
@@ -40,8 +42,14 @@ export default class Home extends Component {
 
   render() {
     const { inputSearch, categories, products } = this.state;
+    const { shoppingCartList, updateShoppingCart } = this.props;
     return (
       <div>
+        <span data-testid="shopping-cart-size">
+          {shoppingCartList.length}
+          <AiOutlineShoppingCart />
+        </span>
+
         <header>
           <input
             data-testid="query-input"
@@ -74,7 +82,11 @@ export default class Home extends Component {
           ) : (
             <div className="products-container">
               {products.map((product) => (
-                <Product key={ product.id } product={ product } />
+                <Product
+                  key={ product.id }
+                  product={ product }
+                  updateShoppingCart={ updateShoppingCart }
+                />
               ))}
             </div>
           )}
@@ -96,3 +108,8 @@ export default class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  updateShoppingCart: PropTypes.func.isRequired,
+  shoppingCartList: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

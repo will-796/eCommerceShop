@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import AvaliationForm from '../components/AvaliationForm';
 import ProductRating from '../components/ProductRating ';
@@ -37,8 +38,10 @@ export default class ProductDetail extends React.Component {
 
   handleClick = () => {
     const { data } = this.state;
+    const { updateShoppingCart } = this.props;
 
     handleSubmit('shoppingCart', data);
+    updateShoppingCart();
   };
 
   previousPage = () => {
@@ -61,8 +64,13 @@ export default class ProductDetail extends React.Component {
       productId,
       avaliationData,
     } = this.state;
+    const { shoppingCartList } = this.props;
     return (
       <main>
+        <span data-testid="shopping-cart-size">
+          {shoppingCartList.length}
+          <AiOutlineShoppingCart />
+        </span>
         <header>
           <button type="button" onClick={ this.previousPage }>
             Voltar
@@ -114,6 +122,8 @@ export default class ProductDetail extends React.Component {
 }
 
 ProductDetail.propTypes = {
+  updateShoppingCart: PropTypes.func.isRequired,
+  shoppingCartList: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

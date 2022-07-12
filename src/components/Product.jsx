@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 import { handleSubmit } from '../services/sessionStorage';
 
 export default class Product extends Component {
+  eventsClick = () => {
+    const { updateShoppingCart, product } = this.props;
+    handleSubmit('shoppingCart', product);
+    updateShoppingCart();
+  }
+
   render() {
     const { product } = this.props;
     return (
@@ -21,7 +27,7 @@ export default class Product extends Component {
         <button
           data-testid="product-add-to-cart"
           type="button"
-          onClick={ () => handleSubmit('shoppingCart', product) }
+          onClick={ this.eventsClick }
         >
           Adicione ao carrinho
 
@@ -32,6 +38,7 @@ export default class Product extends Component {
 }
 
 Product.propTypes = {
+  updateShoppingCart: PropTypes.func.isRequired,
   product: PropTypes.shape({
     id: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
