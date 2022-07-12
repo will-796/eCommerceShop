@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AvaliationForm from '../components/AvaliationForm';
 import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
-import { recoveryFromSection, handleSubmit } from '../services/sessionStorage';
+import { handleSubmit, recoveryFromSection } from '../services/sessionStorage';
 
 export default class ProductDetail extends React.Component {
   constructor() {
