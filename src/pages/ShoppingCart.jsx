@@ -30,33 +30,35 @@ class ShoppingCart extends React.Component {
     });
   };
 
-  handleRemoveButtonClick = (event) => {
-    const idProducts = recoveryFromSection('shoppingCart');
-    const ids = idProducts.map((product) => product.id);
-    const indexof = ids.indexOf(event);
-    idProducts.splice(indexof, 1);
-    const arrayString = JSON.stringify(idProducts);
-    sessionStorage.setItem('shoppingCart', arrayString);
-    this.setState({
-      data: idProducts,
-      totalPrice: idProducts.reduce(
-        (totalprice, product) => totalprice + product.price,
-        0,
-      ),
+  handleRemoveButtonClick = (id) => {
+    const products = recoveryFromSection('shoppingCart');
 
-    });
+    if (products.filter((product) => product.id === id).length > 1) {
+      const ids = products.map((product) => product.id);
+      const indexof = ids.indexOf(id);
+      products.splice(indexof, 1);
+      const productStingfy = JSON.stringify(products);
+      sessionStorage.setItem('shoppingCart', productStingfy);
+      this.setState({
+        data: products,
+        totalPrice: products.reduce(
+          (totalprice, product) => totalprice + product.price,
+          0,
+        ),
+      });
+    }
   }
 
   handleAddButtonClick = (event) => {
-    const idProducts = recoveryFromSection('shoppingCart');
-    const objt = idProducts.find((element) => (element.id === event ? element : null));
-    idProducts.push(objt);
-    const arrayString = JSON.stringify(idProducts);
-    sessionStorage.setItem('shoppingCart', arrayString);
+    const products = recoveryFromSection('shoppingCart');
+    const objt = products.find((element) => (element.id === event ? element : null));
+    products.push(objt);
+    const productStingfy = JSON.stringify(products);
+    sessionStorage.setItem('shoppingCart', productStingfy);
 
     this.setState({
-      data: idProducts,
-      totalPrice: idProducts.reduce(
+      data: products,
+      totalPrice: products.reduce(
         (totalprice, product) => totalprice + product.price,
         0,
       ),
@@ -64,30 +66,8 @@ class ShoppingCart extends React.Component {
     });
   }
 
-  // handleAddButtonClick = async (id) => {
-  //   const idProducts = recoveryFromSection('shoppingCart');
-  //   const newIdProducts = [...idProducts, id];
-  //   handleSubmit('shoppingCart', id);
-  //   const result = newIdProducts.map((ids) => getProductData(ids));
-  //   const array = await Promise.all(result);
-  //   this.setState({
-  //     data: array,
-  //     totalPrice: array.reduce(
-  //       (totalprice, product) => totalprice + product.price,
-  //       0,
-  //     ),
-  //   });
-  // };
-
-  // handleRemoveButtonClick = (id) => {
-  //   const idProducts = recoveryFromSection('shoppingCart');
-  //   const resultId = idProducts.filter((product) => product === id);
-  //   console.log(resultId);
-  // };
-
   render() {
     const { data, totalPrice, unityProducts } = this.state;
-
     return (
       <div>
         {data.length === 0
