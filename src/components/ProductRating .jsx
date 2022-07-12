@@ -15,16 +15,15 @@ export default class ProductRating extends React.Component {
   }
 
   render() {
-    const { id, data } = this.props;
+    const { id, avaliationData } = this.props;
     return (
       <div>
         <h3>Avaliações</h3>
         {
-          data.filter((avaliation) => avaliation.id === id)
+          avaliationData.filter((avaliation) => avaliation.id === id)
             .map((element, index) => (
               <div key={ index }>
                 <h4>{element.email}</h4>
-                <p>{element.rating}</p>
                 {this.renderStar(element.rating)}
                 <p>{element.message}</p>
               </div>
@@ -37,5 +36,5 @@ export default class ProductRating extends React.Component {
 
 ProductRating.propTypes = {
   id: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
+  avaliationData: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
 };

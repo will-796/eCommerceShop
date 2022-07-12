@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AvaliationForm from '../components/AvaliationForm';
 import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
-import { recoveryFromSection, handleSubmit } from '../services/sessionStorage';
+import { handleSubmit, recoveryFromSection } from '../services/sessionStorage';
 
 export default class ProductDetail extends React.Component {
   constructor() {
@@ -15,7 +15,8 @@ export default class ProductDetail extends React.Component {
       image: '',
       price: '',
       aditionalInfo: [],
-      data: recoveryFromSection('avaliations'),
+      data: [],
+      avaliationData: [],
     };
   }
 
@@ -30,6 +31,7 @@ export default class ProductDetail extends React.Component {
       price: data.price,
       aditionalInfo: data.attributes,
       data,
+      avaliationData: recoveryFromSection('avaliations'),
     });
   }
 
@@ -37,25 +39,34 @@ export default class ProductDetail extends React.Component {
     const { data } = this.state;
 
     handleSubmit('shoppingCart', data);
-  }
+  };
 
   previousPage = () => {
     const { history } = this.props;
     history.push('/');
-  }
+  };
 
   updateReviews = () => {
     this.setState({
-      data: recoveryFromSection('avaliations'),
+      avaliationData: recoveryFromSection('avaliations'),
     });
-  }
+  };
 
   render() {
-    const { productName, image, price, aditionalInfo, productId, data } = this.state;
+    const {
+      productName,
+      image,
+      price,
+      aditionalInfo,
+      productId,
+      avaliationData,
+    } = this.state;
     return (
       <main>
         <header>
-          <button type="button" onClick={ this.previousPage }>Voltar</button>
+          <button type="button" onClick={ this.previousPage }>
+            Voltar
+          </button>
           <Link to="/shoppingCart" data-testid="shopping-cart-button">
             Carrinho
           </Link>
@@ -72,12 +83,12 @@ export default class ProductDetail extends React.Component {
                   :
                   {' '}
                   {details.value_name}
-                </p>))}
+                </p>
+              ))}
               <button
                 data-testid="product-detail-add-to-cart"
                 type="button"
                 onClick={ this.handleClick }
-
               >
                 Adicionar ao Carrinho
               </button>
@@ -90,10 +101,10 @@ export default class ProductDetail extends React.Component {
             <div>
               <AvaliationForm
                 id={ productId }
-                data={ data }
+                data={ avaliationData }
                 updateReviews={ this.updateReviews }
               />
-              <ProductRating id={ productId } data={ data } />
+              <ProductRating id={ productId } avaliationData={ avaliationData } />
             </div>
           </section>
         </main>
