@@ -1,16 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { recoveryFromSection } from '../services/sessionStorage';
 
 export default class ProductRating extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: recoveryFromSection('avaliations'),
-      // reviews: [],
-    };
-  }
-
   renderStar = (rating) => {
     const number = 5;
     const stars = [...Array(number)].map((element, index) => {
@@ -24,8 +15,7 @@ export default class ProductRating extends React.Component {
   }
 
   render() {
-    const { id } = this.props;
-    const { data } = this.state;
+    const { id, data } = this.props;
     return (
       <div>
         <h3>Avaliações</h3>
@@ -47,4 +37,5 @@ export default class ProductRating extends React.Component {
 
 ProductRating.propTypes = {
   id: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
 };

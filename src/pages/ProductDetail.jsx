@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AvaliationForm from '../components/AvaliationForm';
 import ProductRating from '../components/ProductRating ';
 import { getProductData } from '../services/api';
+import { recoveryFromSection } from '../services/sessionStorage';
 
 export default class ProductDetail extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ export default class ProductDetail extends React.Component {
       image: '',
       price: '',
       aditionalInfo: [],
+      data: recoveryFromSection('avaliations'),
     };
   }
 
@@ -35,8 +37,14 @@ export default class ProductDetail extends React.Component {
     history.push('/');
   }
 
+  updateReviews = () => {
+    this.setState({
+      data: recoveryFromSection('avaliations'),
+    });
+  }
+
   render() {
-    const { productName, image, price, aditionalInfo, productId } = this.state;
+    const { productName, image, price, aditionalInfo, productId, data } = this.state;
     return (
       <main>
         <header>
@@ -65,8 +73,12 @@ export default class ProductDetail extends React.Component {
           </section>
           <section>
             <div>
-              <AvaliationForm id={ productId } />
-              <ProductRating id={ productId } />
+              <AvaliationForm
+                id={ productId }
+                data={ data }
+                updateReviews={ this.updateReviews }
+              />
+              <ProductRating id={ productId } data={ data } />
             </div>
           </section>
         </main>
