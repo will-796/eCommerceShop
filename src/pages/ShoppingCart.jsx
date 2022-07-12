@@ -49,25 +49,28 @@ class ShoppingCart extends React.Component {
     }
   }
 
-  handleAddButtonClick = (event) => {
+  handleAddButtonClick = async (id, quantity) => {
     const products = recoveryFromSection('shoppingCart');
-    const objt = products.find((element) => (element.id === event ? element : null));
-    products.push(objt);
-    const productStingfy = JSON.stringify(products);
-    sessionStorage.setItem('shoppingCart', productStingfy);
+    const inCartQuantity = products.filter((product) => product.id === id).length;
+    if (inCartQuantity < quantity) {
+      const objt = products.find((element) => (element.id === id ? element : null));
+      products.push(objt);
+      const productStingfy = JSON.stringify(products);
+      sessionStorage.setItem('shoppingCart', productStingfy);
 
-    this.setState({
-      data: products,
-      totalPrice: products.reduce(
-        (totalprice, product) => totalprice + product.price,
-        0,
-      ),
-
-    });
+      this.setState({
+        data: products,
+        totalPrice: products.reduce(
+          (totalprice, product) => totalprice + product.price,
+          0,
+        ),
+      });
+    }
   }
 
   render() {
     const { data, totalPrice, unityProducts } = this.state;
+    const products = recoveryFromSection('shoppingCart');
     return (
       <div>
         {data.length === 0
@@ -79,7 +82,8 @@ class ShoppingCart extends React.Component {
             <div>
               <button
                 type="button"
-                onClick={ () => this.handleRemoveButtonClick(item.id) }
+                onClick={ () => this
+                  .handleRemoveButtonClick(item.id) }
                 data-testid="product-decrease-quantity"
               >
                 -
@@ -89,11 +93,20 @@ class ShoppingCart extends React.Component {
               </h3>
               <button
                 type="button"
-                onClick={ () => this.handleAddButtonClick(item.id) }
+                onClick={ () => this
+                  .handleAddButtonClick(item.id, item.available_quantity) }
                 data-testid="product-increase-quantity"
               >
                 +
               </button>
+            </div>
+            <div>
+              <h4>
+                Quantidade disponível:
+                {' '}
+                {item.available_quantity - (products
+                  .filter((product) => product.id === item.id).length)}
+              </h4>
             </div>
             <button type="button">
               <Link
