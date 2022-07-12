@@ -17,6 +17,8 @@ export default class Product extends Component {
         <p>{product.title}</p>
         <img src={ product.thumbnail } alt="" />
         <p>{product.price}</p>
+        {product.shipping.free_shipping === true
+          ? <p data-testid="free-shipping">Frete grátis disponível</p> : null}
         <Link
           data-testid="product-detail-link"
           to={ `/productDetail/${product.id}` }
@@ -44,5 +46,6 @@ Product.propTypes = {
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    shipping: PropTypes.string,
   }).isRequired,
 };
